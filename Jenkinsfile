@@ -44,6 +44,7 @@ pipeline {
                 }
             }
         stage('Deploy App') {
+            agent any
             steps {
                 sh 'echo deploy to kubernetes' 
                  withAWS(credentials:'aws-credentials') {
