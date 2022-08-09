@@ -19,7 +19,7 @@ pipeline {
         agent {
             docker { image 'sonarsource/sonar-scanner-cli:latest' } }
             steps {
-                sh 'sonnar-scanner'
+                sh 'sonar-scanner'
             }
         }
         stage('docker build') {
