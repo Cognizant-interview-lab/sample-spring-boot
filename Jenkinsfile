@@ -23,13 +23,23 @@ pipeline {
             }
         }
         stage('docker build') {
+            agent any
             steps {
                 sh 'echo docker build'
+                script{
+                    image = docker.build("$ENV_DOCKER_USR/$DOCKERIMAGE")
+                }
             }
         }
         stage('docker push') {
             steps {
                 sh 'echo docker push!'
+                script {
+                    docker.withRegistry('', 'dockerhub') {
+                        image.push("$BUILD_ID")
+                        image.push('latest')
+                    }
+                }
                 }
             }
         stage('Deploy App') {
